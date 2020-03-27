@@ -1,8 +1,10 @@
-import React from 'react';
-import Say from './Say.js';
+import React, { Component } from 'react';
+import IterationSample from './components/IterationSample.js';
 
-const App = () => {
-  return <Say />
-};
+class App extends Component {
+  render() {
+    return <IterationSample />
+  }
+}
 
 export default App;
