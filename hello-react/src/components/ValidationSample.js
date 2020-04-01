@@ -6,30 +6,37 @@ class ValidationSample extends Component {
         password: '',
         clicked: false,
         validated: false
+    };
+    input = React.createRef();
+    handleFocus = () => {
+        this.setState({
+            password: ''
+        });
+        this.input.current.focus();
     }
-    handleChange = (e) => {
+    handleChange = e => {
         this.setState({
             password: e.target.value
         });
-    }
-    handleClick = () => {
+    };
+    handleButtonClick = () => {
         this.setState({
             clicked: true,
-            validated: this.state.password === '0000'
+            validated: this.state.password === '0000',
         });
         this.input.focus();
-    }
+    };
     render() {
         return (
             <div>
                 <input
-                    type="text"
-                    ref={(ref) => this.input=ref}
-                    value={this.state.password}
+                    type="password"
                     onChange={this.handleChange}
-                    className={this.state.clicked ? (this.state.validated ? 'success' : 'failure' ) : '' }
+                    value={this.state.password}
+                    className={ this.state.clicked ? (this.state.validated ? 'success' : 'failed') : '' }
+                    ref={ref => this.input = ref}
                 />
-                <button onClick={this.handleClick}>Validate</button>
+                <button onClick={this.handleButtonClick}>Validate</button>
             </div>
         );
     }

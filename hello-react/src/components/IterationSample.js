@@ -1,53 +1,45 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useLayoutEffect } from 'react';
 
 const IterationSample = () => {
-  // Component Life Cycle Methods
-  /*
-  constructor() {}
-  getDerivedStateFromProps() {}
-  shouldComponentUpdate() {}
-  render() {}
-  componentDidMount() {}
-  getSnapshotBeforeUpdate() {}
-  componentDidUpdate() {}
-  componentWillUmount() {}
-  componentDidCatch() {}
-  */
   const [names, setNames] = useState([
-    { id: 1, text: "눈사람" },
-    { id: 2, text: "얼음" },
-    { id: 3, text: "눈" },
-    { id: 4, text: "바람" }
+    { id:1, text: 'Broodwar' },
+    { id:2, text: 'Diablo3' },
+    { id:3, text: 'LeagueOfLegends' },
+    { id:4, text: 'Sigong' },
+    { id:5, text: 'Joa' },
   ]);
-  const [inputText, setInputText] = useState("");
-  const [nextId, setNextId] = useState(5);
+  const [inputText, setInputText] = useState('');
+  const [nextID, setNextID] = useState(6);
+  
+  const nameList = names.map(name => <li onClick={() => onDelete(name.id)} style={{cursor: 'pointer', marginBottom: '5px' }} key={name.id}>{name.text}</li>);
 
-  const onChange = e => setInputText(e.target.value);
-  const addListing = e => {
+  const onChange = e => {
+    setInputText(e.target.value);
+  }
+  const onClick = () => {
     const nextNames = names.concat({
-      id: nextId,
+      id: nextID,
       text: inputText
     });
-    setNextId(nextId + 1);
     setNames(nextNames);
-    setInputText("");
-  };
-  const deleteListing = id => {
+    setNextID(nextID + 1);
+    setInputText('');
+  }
+  const onDelete = id => {
     const nextNames = names.filter(name => name.id !== id);
     setNames(nextNames);
-  };
-  const nameList = names.map(name => (
-    <li key={name.id} onDoubleClick={() => deleteListing(name.id)}>
-      {name.text}
-    </li>
-  ));
+    setInputText('');
+  }
   return (
     <Fragment>
-      <input value={inputText} onChange={onChange} />
-      <button onClick={addListing}>추가</button>
+      <input
+        value={inputText}
+        onChange={onChange}
+      />
+      <button onClick={onClick}>추가</button>
       <ul>{nameList}</ul>
     </Fragment>
   );
-};
+}
 
 export default IterationSample;

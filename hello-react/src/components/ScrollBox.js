@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class ScrollBox extends Component {
     scrollToBottom = () => {
         const { scrollHeight, clientHeight } = this.box;
-        this.box.scrollTop = scrollHeight - clientHeight;
-    }
+        this.box.scrollTop = scrollHeight - clientHeight;  
+    };
     render() {
-        const style = {
+        const outerStyle = {
             border: '1px solid black',
             height: '300px',
             width: '300px',
@@ -16,17 +16,22 @@ class ScrollBox extends Component {
         };
         const innerStyle = {
             width: '100%',
-            height: '1050px',
-            background: 'linear-gradient(white,black)'
+            height: '750px',
+            background: 'linear-gradient(white, black)'
         };
+
         return (
-            <div
-                style={style}
-                ref={(ref) => { this.box = ref }}>
-                <div style={innerStyle}></div>
+            <div>
+                <div
+                    style={outerStyle}
+                    ref={ref => this.box = ref}
+                >
+                    <div style={innerStyle}></div>
+                </div>
+                <a href=""></a><button onClick={this.scrollToBottom}>아래로</button>
             </div>
         );
-    }    
+    }
 }
 
 export default ScrollBox;

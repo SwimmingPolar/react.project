@@ -1,6 +1,6 @@
 .success {
     background-color: lightgreen;
 }
-.failure {
+.failed {
     background-color: lightcoral;
 }
