@@ -1,0 +1,44 @@
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+
+const getAverage = numbers => {
+    if (numbers.length === 0) return 0;
+    const sum = numbers.reduce((a, b) => a + b);
+    return sum / numbers.length;
+}
+
+const Average = () => {
+    const [list, setList] = useState([]);
+    const [number, setNumber] = useState('');
+    const inputRef = useRef(null);
+    const id = useRef(1);
+    const setId = n => id.current = n;
+
+    const onChange = useCallback(e => {
+        setNumber(e.target.value);
+    }, []);
+
+    const onInsert = useCallback(e => {
+        const nextList = list.concat(parseInt(number));
+        setList(nextList);
+        setNumber('');
+        inputRef.current.focus();
+        console.log(id);
+    }, [number, list]);
+
+    const avg = useMemo(() => getAverage(list), [list]);
+
+    return (
+        <div>
+            <input value={number} onChange={onChange} ref={inputRef} />
+            <button onClick={onInsert}>등록</button>
+            <ul>
+                {list.map((value, index) => <li key={index}>{value}</li>)}
+            </ul>
+            <div>
+                <b>Average: </b>{avg}
+            </div>
+        </div>
+    );
+};
+
+export default Average;
